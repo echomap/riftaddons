@@ -1,0 +1,17 @@
+Identifier = "LibSlashCmd"
+
+Name = "Lib Slash Command"
+
+Description = "Library designed to make handling any and all slash commands simple."
+
+Author = "TimeBomb"
+Website = "http://www.riftgame.com"
+Email = "N/A@example.com"
+
+Version = "0.3"
+
+Environment = "1.7"
+
+RunOnStartup = {
+  "main.lua",
+}

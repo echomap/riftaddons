@@ -1,0 +1,29 @@
+Identifier = "LibVersionCheck"
+
+Name = {
+  English = "LibVersionCheck"
+}
+
+Description = {
+  English  = "A Library to exchange Addon Version info with other players, to remind when a new addon version is available",
+}
+
+Email = "blohm@s.netic.de"
+Version = "0.04"
+Environment = "2.2"
+SavedVariables = {
+   LibVersionCheckVersions = "global",
+   LibVersionCheckSpy      = "global",
+   LibVersionCheckSettings = "account",
+}
+
+
+RunOnStartup = {
+  "Translations.lua",
+  "main.lua",
+  "UI.lua",
+}
+-- X-Curse-Packaged-Version: v0.4.38
+-- X-Curse-Project-Name: Mere Healing Frames
+-- X-Curse-Project-ID: merehealingframes
+-- X-Curse-Repository-ID: rift/merehealingframes/mainline

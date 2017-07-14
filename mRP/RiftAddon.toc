@@ -1,0 +1,68 @@
+-- mRP is an UI addon for RIFT that aims to create a toolset to enable Roleplaying and creativity.
+-- Including a set or profiles that can be chosen to show your current roleplaying status and character of the instant.
+-- *Social tools to find other roleplayers.
+-- *Scene preparation
+-- *Text preparation and storage.
+-- ---------------------------------------------------------------------------------------------------------
+-- Welcome to the mRP Addon!
+-- ---------------------------------------------------------------------------------------------------------
+-- Identifier is unique for each Addon
+Identifier = "mRP"
+
+-- This information is what is shown to the user in the game
+Name = "mRP"
+NameShort = "mRP"
+Description = "This is an Addon that does ZXZXZ"
+Author = "echomap"
+Email = "echomap@gmail.com"
+Website = "http://echomap.blogspot.com/"
+
+-- Version is a self-selected version number of the Addon
+Version = "0.0.3"
+
+-- Environment specifies what version of Rift the Addon was developed for
+Environment = "4.0"
+
+-- Include all files that are required by the Addon in the RunOnStartup section
+RunOnStartup = {
+	"init.lua",
+	"comms.lua",
+	--"interfaceDyn.lua",
+	"ifBtn.lua",
+	--"ifInfo.lua",
+	"ifProfile.lua",
+	"ifCurrent.lua",
+	--"ifScenes.lua",
+	"ifActor.lua",
+	"ifSession.lua",
+	"ifSessions.lua",
+	"ifSearch.lua",
+	"ifNotes.lua",
+	"ifTooltip.lua",
+	"ifHelp.lua",
+	"core.lua",
+}
+
+Embed = {
+	["Libs/LibSimpleWidgets"] = true,
+	["Libs/LibSlashCmd"] = true,
+	["Libs/LibVersionCheck"] = true,
+}
+
+Dependencies = {
+	LibSimpleWidgets = {"required", "before"},
+	LibSlashCmd      = {"required", "before"},
+	LibVersionCheck  = {"required", "before"},
+	EnKai            = {"required", "before"},
+}
+
+
+SavedVariables = {
+  	mRPSetup    = "character",
+	mRPStorageC = "character",
+	mRPStorageA = "account",
+}
+-- X-Curse-Packaged-Version: V0.0.2
+-- X-Curse-Project-Name: mRP
+-- X-Curse-Project-ID: mRP
+-- X-Curse-Repository-ID: rift/mRP/mainline

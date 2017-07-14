@@ -1,0 +1,24 @@
+if( sel1 ~= nil ) then print("sel1" ..  dump(sel1) ) end;
+local idx1 = sel1.index
+if( idx1 ~= nil ) then print("Idx1" .. dump(idx1) ) end;
+local itemV = mRP.UI.UserList.list:GetSelectedValue()
+if( itemV ~= nil ) then print("itemV" .. dump(itemV) ) end;
+local idx2 = mRP.UI.UserList.list:GetSelectedIndex()
+if( idx2 ~= nil ) then print("idx2" .. dump(idx2) ) end;
+local itemV2 = mRP.UI.UserList.list:GetValues()
+if( itemV2 ~= nil ) then print("itemV2" .. dump(itemV2) ) end;
+local selItem = itemV2[idx2]---1]
+print("selItem")
+dump(selItem)
+
+
+local printResult = ""
+if( arg ~= nil ) then
+    for i,v in ipairs(arg) do
+        if(v ~= nil ) then
+            printResult = printResult .. tostring(v) .. "\t"
+        end
+      end
+      printResult = printResult .. "\n"
+end
+print(printResult)
