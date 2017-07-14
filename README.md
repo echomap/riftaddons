@@ -1,0 +1,2 @@
+# riftaddons
+Rift game addon
