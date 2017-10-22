@@ -34,19 +34,19 @@ function mRP.populateProfileWindow(args)
 end
 
 function mRP.createProfileWindow()
-    mRP.UI.profile = {}
+	mRP.UI.profile = {}
 
 	if( mRP.UI.Context == nil) then
-		mRP.UI.Context     = UI.CreateContext(AddonData.identifier)
+		mRP.UI.Context = UI.CreateContext(AddonData.identifier)
 	end
 
 	mRP.UI.profile.Window  = UI.CreateFrame("SimpleWindow", "mRPMainProfileWindow", mRP.UI.Context )
-    mRP.UI.profile.Window:SetCloseButtonVisible(true)
-    mRP.UI.profile.Window:SetTitle("Main Profile Data")
-    mRP.UI.profile.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, 200)
+	mRP.UI.profile.Window:SetCloseButtonVisible(true)
+	mRP.UI.profile.Window:SetTitle("Main Profile Data")
+	mRP.UI.profile.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, 200)
 	mRP.UI.profile.Window:SetWidth(475)
 	mRP.UI.profile.Window:SetHeight(340)
-    mRP.UI.profile.Window:SetVisible(false)
+	mRP.UI.profile.Window:SetVisible(false)
 
 
     local WLeft = 100;
@@ -62,11 +62,11 @@ function mRP.createProfileWindow()
     mRP.UI.profile.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", WLeft, WTop)
 
 	mRP.UI.profile.Tabbed  = UI.CreateFrame("SimpleTabView", "mRPTabbedProfileWindow", mRP.UI.profile.Window )
-    mRP.UI.profile.Tabbed:SetPoint("TOPLEFT", mRP.UI.profile.Window:GetContent() , "BOTTOMLEFT")
+	mRP.UI.profile.Tabbed:SetPoint("TOPLEFT", mRP.UI.profile.Window:GetContent() , "BOTTOMLEFT")
 	mRP.UI.profile.Tabbed:SetWidth( mRP.UI.profile.Window:GetContent():GetWidth()*0.80 )
 	mRP.UI.profile.Tabbed:SetTabContentBackgroundColor(255, 255, 255, 0)
 
-    -- details
+	-- details
 	local rightParent = nil;
 	mRP.UI.profile.general = {}
 	mRP.UI.profile.general.ProfileNameMaxLen = mRP.settings.ProfileNameMaxLen;
@@ -92,8 +92,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.deleteProfileButton:SetWidth(100)
 	function mRP.UI.profile.general.deleteProfileButton.Event:LeftPress()
 		local ptIdx = mRP.UI.profile.general.SelectProfile1:GetSelectedIndex()
-
-		local vGI = mRP.UI.profile.general.SelectProfile1:GetItems()
+		local vGI   = mRP.UI.profile.general.SelectProfile1:GetItems()
 		table.remove( items, ptIdx )
 		mRP.UI.profile.general.SelectProfile1:SetItems(items);
 		mRP.UI.profile.general.SelectProfileCP:SetItems(items);
@@ -127,7 +126,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.SelectProfile1:SetItems(items) --, itemVals)
 	mRP.UI.profile.general.SelectProfile1:SetSelectedIndex(1, false)
 
-	--
+	-- New Profile BUTTON
 	mRP.UI.profile.general.newProfileButton = UI.CreateFrame("RiftButton", "NPButton", rightParent)
 	mRP.UI.profile.general.newProfileButton:SetText("New Profile")
 	mRP.UI.profile.general.newProfileButton:SetPoint("TOPLEFT", mRP.UI.profile.general.deleteProfileButton, "TOPRIGHT", 12, 0 )
@@ -145,6 +144,7 @@ function mRP.createProfileWindow()
 		mRPStorageC.profiles = items;
 		print("mRP: added New Profile to list")
 		mRP.UI.profile.general.SelectProfile1:SetSelectedIndex(1, true);
+		mRP.UI.profile.general.NewProfileName:SetText("");
 	end
 
 	mRP.UI.profile.general.NewProfileName = UI.CreateFrame("RiftTextfield", "NPText", rightParent )
@@ -448,6 +448,12 @@ function mRP.createProfileWindow()
 			mRP.UI.profile.public.TextArea1:SetText( "" );
 		end
 	end
+
+	-- TOOLTIPS? SimpleTooltip
+	local tooltipMain = UI.CreateFrame("SimpleTooltip", "MyTooltip", mRP.UI.profile.general.WindowO )
+	tooltipMain:InjectEvents( mRP.UI.profile.general.NewProfileName , function() return "Enter a new profile name here, then press new profile." end)
+	--tooltipMain:InjectEvents(mybutton, function() return "My Button Tooltip" end)
+	--tooltipMain:InjectEvents(mytextfield , function() return "My Textfield Tooltip" end)
 
     mRP.UI.profile.loaded = true;
 end

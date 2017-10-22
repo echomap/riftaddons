@@ -33,7 +33,7 @@ function mRP.createCurrentWindow()
     mRP.UI.current = {}
 
 	if( mRP.UI.Context == nil) then
-		mRP.UI.Context     = UI.CreateContext(AddonData.identifier)
+		mRP.UI.Context = UI.CreateContext(AddonData.identifier)
 	end
 
 
