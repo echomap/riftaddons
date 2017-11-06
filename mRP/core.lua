@@ -20,6 +20,7 @@ mRP.settings.queryforTooltips = false
 
 mRP.cache = {}
 mRP.cache.actors = {}
+mRP.RpStatus = { "OOC", "In Character", "Looking for RP" }
 
 -- ---------------------------------------------------------------------------------------------------------
 
@@ -155,6 +156,19 @@ local function SaveSettings(handle, AddonID)
 		else
 			mRP.UI.sessions = {}
 		end
+
+		if(mRPSetup.search == nil) then
+			mRPSetup.search = {}
+		end
+		if(mRP.UI.search ~= nil) then
+			local btnL = mRP.UI.search.Window:GetLeft();
+			local btnT = mRP.UI.search.Window:GetTop();
+			mRPSetup.search.left = btnL;
+			mRPSetup.search.top  = btnT;
+		else
+			mRP.UI.search = {}
+		end
+
 	end
 end
 -- ---------------------------------------------------------------------------------------------------------

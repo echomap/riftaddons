@@ -82,6 +82,11 @@ function mRP.createBtnWindow()
     mRP.UI.btn.Window:SetVisible(false)
     mRP.UI.btn.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, 200)
 
+	--function mRP.UI.btn.Window:EventKeyPressed(handle,key)
+	--  print("Frame " .. self:GetName() .. " key hit: '".. key.. "'")
+	--end
+	--mRP.UI.btn.Window:EventAttach(Event.UI.Input.Key.Up, mRP.UI.btn.Window.EventKeyPressed, "keypressed",-2)
+
     local WLeft = 100;
     local WTop  = 200;
     if( mRPSetup~= nil and mRPSetup.btn ~= nil ) then
@@ -122,17 +127,17 @@ function mRP.createBtnWindow()
 	mRP.UI.btn.Window:EventAttach(Event.UI.Input.Mouse.Right.Down, function (self)
 		if not locked then mouseDown = true end
 	end, name .. "._RightDown")
-    mRP.UI.btn.Window:EventAttach(Event.UI.Input.Mouse.Cursor.Move, function (self)
+		mRP.UI.btn.Window:EventAttach(Event.UI.Input.Mouse.Cursor.Move, function (self)
 		if Inspect.System.Secure() == false and mouseDown == true then
 			local mouseData = Inspect.Mouse()
 
 			local curdivX = mouseData.x - mRP.UI.btn.Window:GetLeft()
 			local curdivY = mouseData.y - mRP.UI.btn.Window:GetTop()
 
-            mRP.buttonX = mRP.buttonX + curdivX
+			mRP.buttonX = mRP.buttonX + curdivX
 			mRP.buttonY = mRP.buttonY + curdivY
-            --mRP.debugMsg ( "Move: buttonX: " , mRP.buttonX, " mRP.buttonY: ", mRP.buttonY );
-            --TODO to a saved variable..
+			--mRP.debugMsg ( "Move: buttonX: " , mRP.buttonX, " mRP.buttonY: ", mRP.buttonY );
+			--TODO to a saved variable..
 
 			mRP.UI.btn.Window:SetPoint ("TOPLEFT", UIParent, "TOPLEFT", mRP.buttonX, mRP.buttonY)
 		end

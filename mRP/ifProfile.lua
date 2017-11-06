@@ -47,19 +47,21 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.Window:SetWidth(475)
 	mRP.UI.profile.Window:SetHeight(340)
 	mRP.UI.profile.Window:SetVisible(false)
+	--function mRP.UI.profile.Window.Event:TabSelect(index)
+	--	mRP.debugMsg("0--->TabSelect(index ")
+	--end
 
-
-    local WLeft = 100;
-    local WTop = 200;
-    if( mRPSetup~= nil and mRPSetup.profile ~= nil ) then
-        if( mRPSetup.profile.left ~= nil and mRPSetup.profile.left > 0 ) then
-            WLeft = mRPSetup.profile.left;
-        end
+	local WLeft = 100;
+	local WTop = 200;
+	if( mRPSetup~= nil and mRPSetup.profile ~= nil ) then
+		if( mRPSetup.profile.left ~= nil and mRPSetup.profile.left > 0 ) then
+			WLeft = mRPSetup.profile.left;
+		end
         if( mRPSetup.profile.top ~= nil and mRPSetup.profile.top > 0 ) then
             WTop = mRPSetup.profile.top;
         end
-    end
-    mRP.UI.profile.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", WLeft, WTop)
+	end
+	mRP.UI.profile.Window:SetPoint("TOPLEFT", UIParent, "TOPLEFT", WLeft, WTop)
 
 	mRP.UI.profile.Tabbed  = UI.CreateFrame("SimpleTabView", "mRPTabbedProfileWindow", mRP.UI.profile.Window )
 	mRP.UI.profile.Tabbed:SetPoint("TOPLEFT", mRP.UI.profile.Window:GetContent() , "BOTTOMLEFT")
@@ -72,7 +74,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.ProfileNameMaxLen = mRP.settings.ProfileNameMaxLen;
 
 	-- TAB -- GENERAL
-	mRP.UI.profile.general.WindowO = UI.CreateFrame("SimpleWindow", "mRPGeneral", mRP.UI.profile.Tabbed.tabContent)
+	mRP.UI.profile.general.WindowO = UI.CreateFrame("SimpleWindow", "mRPGeneral "..AddonData.toc.Version, mRP.UI.profile.Tabbed.tabContent)
 	mRP.UI.profile.general.Window  = UI.CreateFrame("Frame", "mRPGeneralWindow", mRP.UI.profile.general.WindowO );
 	mRP.UI.profile.general.Window:SetPoint("TOPLEFT", mRP.UI.profile.Window:GetContent(), "TOPLEFT")
 	mRP.UI.profile.general.Window:SetWidth(mRP.UI.profile.Window:GetWidth())
@@ -98,7 +100,7 @@ function mRP.createProfileWindow()
 		mRP.UI.profile.general.SelectProfileCP:SetItems(items);
 		mRPStorageC.profiles = items;
 		mRP.UI.profile.general.SelectProfile1:SetSelectedIndex(1, true)
-		--print("mRP: Profile Data Deleted")
+		--mRP.debugMsg("mRP: Profile Data Deleted")
 	end
 
 	-- SimpleSelect
@@ -142,7 +144,7 @@ function mRP.createProfileWindow()
 		mRP.UI.profile.general.SelectProfile1:SetItems(items);
 		mRP.UI.profile.general.SelectProfileCP:SetItems(items);
 		mRPStorageC.profiles = items;
-		print("mRP: added New Profile to list")
+		mRP.debugMsg("mRP: added New Profile to list")
 		mRP.UI.profile.general.SelectProfile1:SetSelectedIndex(1, true);
 		mRP.UI.profile.general.NewProfileName:SetText("");
 	end
@@ -186,7 +188,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.SelectProfileCP:SetHeight( 20  )
 	mRP.UI.profile.general.SelectProfileCP:SetBackgroundColor(255, 255, 255, 0.3)
 	mRP.UI.profile.general.SelectProfileCP.ItemSelect = function(view, item)
-		--print("mRP Edit Profile: ("..item..")")
+		--mRP.debugMsg("mRP Edit Profile: ("..item..")")
 		--local pName = mRP.UI.profile.general.SelectProfile1:GetSelectedItem()
 		--mRP.UI.profile.private.TextField0:SetText( pName );
 		--mRP.UI.profile.public.TextField0:SetText( pName );
@@ -222,13 +224,14 @@ function mRP.createProfileWindow()
 
 	mRP.UI.profile.general.radioButtonGroup = Library.LibSimpleWidgets.RadioButtonGroup("characterStatusRBG")
 	mRP.UI.profile.general.radioButtonGroup.Event.RadioButtonChange = function(self)
-		print(self:GetName().." selected radio button = "..self:GetSelectedRadioButton():GetName())
+		mRP.debugMsg(self:GetName().." selected radio button = "..self:GetSelectedRadioButton():GetName())
 	end
+	-- "OOC" "In Character" "Looking for RP"
 	mRP.UI.profile.general.radioButton1 = UI.CreateFrame("SimpleRadioButton", "characterStatusRB1", rightParent)
 	mRP.UI.profile.general.radioButton1:SetText("OOC")
 	mRP.UI.profile.general.radioButton1:SetPoint("TOPLEFT", mRP.UI.profile.general.LabelCS, "TOPLEFT", 0, 20)
 	mRP.UI.profile.general.radioButton1.Event.RadioButtonSelect = function(self)
-		--print(self:GetName().." selected")
+		--mRP.debugMsg(self:GetName().." selected")
 		mRPStorageC.characterStatus = 1
 	end
 	mRP.UI.profile.general.radioButtonGroup:AddRadioButton(mRP.UI.profile.general.radioButton1)
@@ -237,7 +240,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.radioButton2:SetPoint("TOPLEFT", mRP.UI.profile.general.radioButton1, "BOTTOMLEFT", 0, 5)
 	mRP.UI.profile.general.radioButton2:SetText("In Character")
 	mRP.UI.profile.general.radioButton2.Event.RadioButtonSelect = function(self)
-		--print(self:GetName().." selected")
+		--mRP.debugMsg(self:GetName().." selected")
 		mRPStorageC.characterStatus = 2
 	end
 	mRP.UI.profile.general.radioButtonGroup:AddRadioButton(mRP.UI.profile.general.radioButton2)
@@ -246,7 +249,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.general.radioButton3:SetPoint("TOPLEFT", mRP.UI.profile.general.radioButton2, "BOTTOMLEFT", 0, 5)
 	mRP.UI.profile.general.radioButton3:SetText("Looking for RP")
 	mRP.UI.profile.general.radioButton3.Event.RadioButtonSelect = function(self)
-		--print(self:GetName().." selected")
+		--mRP.debugMsg(self:GetName().." selected")
 		mRPStorageC.characterStatus = 3
 	end
 	mRP.UI.profile.general.radioButtonGroup:AddRadioButton(mRP.UI.profile.general.radioButton3)
@@ -261,7 +264,7 @@ function mRP.createProfileWindow()
 	--TODO
 	mRP.UI.profile.general.rbg = Library.LibSimpleWidgets.RadioButtonGroup("MyRadioButtonGroup2")
 	mRP.UI.profile.general.rbg.Event.RadioButtonChange = function(self)
-		print(self:GetName().." selected radio button = "..self:GetSelectedRadioButton():GetName())
+		mRP.debugMsg(self:GetName().." selected radio button = "..self:GetSelectedRadioButton():GetName())
 	end
 	--TODO
 
@@ -330,7 +333,7 @@ function mRP.createProfileWindow()
 		local pName = mRP.UI.profile.general.SelectProfile1:GetSelectedItem()
 		--table.insert( mRPStorageC.private, {[pName] = mRP.UI.profile.private.TextArea1:GetText(); } )
 		mRPStorageC.private[pName] = mRP.UI.profile.private.TextArea1:GetText();
-		print("mRP: Private Data Saved")
+		mRP.debugMsg("mRP: Private Data Saved")
 	end
 	--mRP.UI.profile.private.saveButton:SetLayer(2)
 
@@ -404,7 +407,7 @@ function mRP.createProfileWindow()
 		local pName = mRP.UI.profile.general.SelectProfile1:GetSelectedItem()
 		--table.insert( mRPStorageC.public, {[pName] = mRP.UI.profile.public.TextArea1:GetText(); } )
 		mRPStorageC.public[pName] = mRP.UI.profile.public.TextArea1:GetText();
-		print("mRP: Public Data Saved")
+		mRP.debugMsg("mRP: Public Data Saved")
 	end
 	--mRP.UI.profile.public.saveButton:SetLayer(2)
 
@@ -429,7 +432,7 @@ function mRP.createProfileWindow()
 	mRP.UI.profile.Tabbed:AddTab("Private", mRP.UI.profile.private.WindowO )
 
 	mRP.UI.profile.general.SelectProfile1.Event.ItemSelect = function(view, item)
-		print("mRP Edit Profile: ("..item..")")
+		mRP.debugMsg("mRP Edit Profile: ("..item..")")
 		local pName = mRP.UI.profile.general.SelectProfile1:GetSelectedItem()
 		mRP.UI.profile.private.TextField0:SetText( pName );
 		mRP.UI.profile.public.TextField0:SetText(  pName );
@@ -454,6 +457,24 @@ function mRP.createProfileWindow()
 	tooltipMain:InjectEvents( mRP.UI.profile.general.NewProfileName , function() return "Enter a new profile name here, then press new profile." end)
 	--tooltipMain:InjectEvents(mybutton, function() return "My Button Tooltip" end)
 	--tooltipMain:InjectEvents(mytextfield , function() return "My Textfield Tooltip" end)
+
+
+	--mRP.UI.profile.Window
+	--Event.UI.Input.Key.Up
+
+	--function mRP.UI.profile.Window:EventMoveHandler(handle)
+	--  print("Frame " .. self:GetName() .. " moved!")
+	--end
+	function mRP.UI.profile.Tabbed:EventKeyPressed(handle,key)
+	  print("Frame " .. self:GetName() .. " key hit: '".. key.. "'")
+	end
+	function mRP.UI.profile.Window:EventKeyPressed(handle,key)
+	  print("Frame " .. self:GetName() .. " key hit: '".. key.. "'")
+	end
+	--frame:EventAttach(Event.UI.Layout.Move, frame.EventMoveHandler, "move", -2)
+	mRP.UI.profile.Window:EventAttach(Event.UI.Input.Key.Up, mRP.UI.profile.Window.EventKeyPressed, "keypressed",-2)
+	mRP.UI.profile.Tabbed:EventAttach(Event.UI.Input.Key.Up, mRP.UI.profile.Tabbed.EventKeyPressed, "keypressed",-2)
+	--frame:EventMacroSet(Event.UI.Input.Mouse.Left.Down, "say Hello!")
 
     mRP.UI.profile.loaded = true;
 end

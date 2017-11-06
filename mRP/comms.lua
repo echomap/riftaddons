@@ -24,7 +24,7 @@ local function gotMessage(handle, from, type, channel, identifier, data)
 	mRP.debugMsg(" got data: ''"  ..data.. "'' from ''" ..from.. "'' id: ''" ..identifier.. "'" );
 
 	if( string.starts(data, "queryrp") ) then
-		mRP.debugMsg( "Got Query from "..from );
+		mRP.debugMsg( "Got RP Query from '"..from.."'" );
 		local kasf = {}
 		kasf.from   = from
 		kasf.action = "queryrp"
@@ -33,7 +33,7 @@ local function gotMessage(handle, from, type, channel, identifier, data)
 	end
 
 	if( string.starts(data, "queryinfo") ) then
-		mRP.debugMsg( "Got Query from "..from );
+		mRP.debugMsg( "Got Info Query from "..from );
 		local kasf = {}
 		kasf.from   = from
 		kasf.action = "queryinfo"
@@ -42,14 +42,16 @@ local function gotMessage(handle, from, type, channel, identifier, data)
 	end
 
 	if( string.starts(data, "rpstatus") ) then
-		mRP.debugMsg( "Got RPstatus from "..from );
+		mRP.debugMsg( "Got RP Status from "..from );
 		local idx = 1;
 		local words = {}
 		for w in data:gmatch("%S+") do
 			words[idx] = w
 			idx = idx+1;
+			--mRP.debugMsg( "w:", w );
 		end
 		local val = words[2];
+		--mRP.debugMsg( "val:", val );
 		--if( val ~= nil) then
 		if(mRP.cache == nil) then
 			mRP.cache = {}
@@ -57,6 +59,8 @@ local function gotMessage(handle, from, type, channel, identifier, data)
 		if(mRP.cache.actors == nil) then
 			mRP.cache.actors = {}
 		end
+		mRP.debugMsg( "val:", val );
+
 		mRP.cache.actors[from] = {}
 		mRP.cache.actors[from].rpstatus = val;
 	end
@@ -74,6 +78,7 @@ local function gotMessage(handle, from, type, channel, identifier, data)
 	--if data:len()>=7 and data:sub(1,7) == "version" then
 	--	mRP.debugMsg("got version info: ", data.," from ",from);
 	--end
+	mRP.updateSearchScreen()
 end
 
 local function ignoreme()
@@ -92,7 +97,7 @@ local function systemUpdate(handle)
 	table.remove(mRP.sendToList, 1);
 	local toUser = toSend[1]
 	local kasdfd = toSend[2]
-	mRP.debugMsg("Sending reply to user", toUser );
+	mRP.debugMsg("Preparing to reply to user", toUser );
 
 	--TODO include 'inscene' 'lf RP' etc...
 	if(kasdfd.action=="queryrp") then
@@ -106,6 +111,8 @@ local function systemUpdate(handle)
 				rval = mRPStorageC.characterStatus
 			end
 		end
+		mRP.debugMsg("Sending my status to user", toUser );
+
 		Command.Message.Send( toUser, "mRP", "rpstatus "..rval, mRP.sendMsgCallback);
 	end
 
@@ -127,10 +134,11 @@ local function systemUpdate(handle)
 		mRP.debugMsg("Got ProfileName as ",pName);
 		local pVal = mRP.retrieveSelectedProfileByName(pName)
 		rval = pVal;
-
+		mRP.debugMsg("Sending my info to user", toUser );
 		Command.Message.Send( toUser, "mRP", "rpinfo "..rval, mRP.sendMsgCallback);
 	end
 	--
+	--mRP.updateSearchScreen()
 end
 -- ---------------------------------------------------------------------------------------------------------
 -- Commands

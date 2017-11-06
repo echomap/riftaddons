@@ -18,7 +18,7 @@ Email = "echomap@gmail.com"
 Website = "http://echomap.blogspot.com/"
 
 -- Version is a self-selected version number of the Addon
-Version = "0.0.3"
+Version = "0.0.4"
 
 -- Environment specifies what version of Rift the Addon was developed for
 Environment = "4.0"
